@@ -84,7 +84,7 @@ non_app:
   | FALSE               	  { Bool false }
   | INT		                  { Int $1 }
   | nil                           { Nil }
-  | LPAREN expr RPAREN		  { $2 }    
+  | LPAREN expr RPAREN		  { $2 }
   | LPAREN expr COMMA expr RPAREN { Pair ($2, $4) }
 
 arith:

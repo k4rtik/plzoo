@@ -1,17 +1,17 @@
 (* This file contains all the common code used by the languages implemented in the PL Zoo. *)
 
 type location =
-  | Location of Lexing.position * Lexing.position (** delimited location *)
-  | Nowhere (** no location *)
+  | Location of Lexing.position * Lexing.position  (** delimited location *)
+  | Nowhere  (** no location *)
 
-type 'a located = { data : 'a ; loc : location }
+type 'a located = {data: 'a; loc: location}
 
 let make_location loc1 loc2 = Location (loc1, loc2)
 
 let location_of_lex lex =
   Location (Lexing.lexeme_start_p lex, Lexing.lexeme_end_p lex)
 
-let locate ?(loc=Nowhere) x = { data = x; loc = loc }
+let locate ?(loc = Nowhere) x = {data= x; loc}
 
 (** Exception [Error (loc, err, msg)] indicates an error of type [err] with error message
     [msg], occurring at location [loc]. *)
@@ -175,7 +175,7 @@ struct
         syntax_error ~loc:(location_of_lex lex) "syntax error"
 
   (** Load directives from the given file. *)
-  let use_file ctx (filename, interactive) =
+  let use_file ctx (filename, _) =
     match L.file_parser with
     | Some f ->
        let cmds = read_file (wrap_syntax_errors f) filename in
